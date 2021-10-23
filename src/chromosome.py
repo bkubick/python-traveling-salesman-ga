@@ -1,12 +1,18 @@
 # coding: utf-8
 
+import copy
 import random
-from typing import List, Optional, Union
-
-import numpy as np
-
 
 class Chromosome:
-    def __init__(self, order, fitness):
-        self.order = order
+    def __init__(self, genes, fitness):
+        self.genes = genes
         self.fitness = fitness
+    
+    def __lt__(self, other):
+        return other.fitness > self.fitness
+    
+    def __gt__(self, other):
+        return other.fitness < self.fitness
+
+    def __eq__(self, other):
+        return other.fitness == self.fitness
