@@ -31,7 +31,7 @@ class Selection:
                 parent_1 = np.digitize(random.random(), normalized_cumulative_sum, right=True)
                 parent_2 = np.digitize(random.random(), normalized_cumulative_sum, right=True)
 
-            genes_1, genes_2 = Crossover.double_point_crossover(population[parent_1].genes, population[parent_2].genes)
+            genes_1, genes_2 = Crossover.double_point(population[parent_1].genes, population[parent_2].genes)
             offspring.extend([Chromosome(genes_1), Chromosome(genes_2)])
 
         return offspring

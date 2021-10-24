@@ -2,19 +2,22 @@
 
 import copy
 import random
+import time
 
 import numpy as np
 from pandas import read_csv
 
 from src.chromosome import Chromosome
 from src.fitness import Fitness
+from src.mutation import Mutation
 from src.selection import Selection
 
 
 class TravelingSalesman:
     def __init__(self, file_name):
         data = read_csv(file_name, header=None).to_numpy()
-        Fitness.initialize_fitness_matrix(data)
+        Chromosome.FitnessModule = Fitness
+        Chromosome.FitnessModule.initialize_matrix(data)
 
         self.num_genes = len(data)
 
@@ -32,7 +35,8 @@ class TravelingSalesman:
             # Mutation
             for chromosome in population_2:
                 if random.random() <= mutation_probability:
-                    chromosome.mutate_switch_two_genes()
+                    Mutation.shuffle_k_random_genes(chromosome.genes, 2)
+                    chromosome.set_fitness()
 
             # Sorting population_3 to grab top 50%
             combined_population = sorted(population_1 + population_2)
@@ -45,3 +49,21 @@ class TravelingSalesman:
         
         # Returning Progress
         return max_per_generation
+
+
+if __name__ == '__main__':
+    # Instantiating TravelingSalesman class with file
+    file_name = 'data/TSP1.csv'
+    traveling_salesman = TravelingSalesman(file_name)
+
+    # Declaring Parameters
+    population_size = 100
+    generations = 50
+    mutation_probability = 0.01
+
+    # Running the algorithm
+    tic = time.perf_counter()
+    max_per_generation = traveling_salesman.simple_genetic_algorithm(population_size, generations, mutation_probability)
+    toc = time.perf_counter()
+    print(max_per_generation)
+    print(f'Time: {toc - tic} seconds.')
