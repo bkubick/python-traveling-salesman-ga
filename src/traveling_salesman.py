@@ -7,10 +7,10 @@ import time
 import numpy as np
 from pandas import read_csv
 
-from src.chromosome import Chromosome
-from src.fitness import Fitness
-from src.mutation import Mutation
-from src.selection import Selection
+from src.models.chromosome import Chromosome
+from src.models.fitness import Fitness
+from src.models.mutation import Mutation
+from src.models.selection import Selection
 
 
 class TravelingSalesman:

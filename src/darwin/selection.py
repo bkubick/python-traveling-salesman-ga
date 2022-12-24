@@ -3,8 +3,8 @@
 import random
 import numpy as np
 
-from src.chromosome import Chromosome
-from src.crossover import Crossover
+from src.models.chromosome import Chromosome
+from src.models.crossover import Crossover
 
 class Selection:
 
